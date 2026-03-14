@@ -1,0 +1,9 @@
+# WhatsApp AI CRM — Workspace Rules
+
+- Stack: Next.js 15, TypeScript, Tailwind CSS, Supabase
+- Design system: Skeuomorphic (leather, brass, cream tones)
+- Always use the `skeu-card`, `skeu-btn`, `skeu-input` CSS classes
+- Database: Supabase (cpqtclqjppdcqmdnuizq.supabase.co)
+- Never install new UI libraries without asking
+- All pages go inside src/app/dashboard/
+- Always use the cn() utility from @/lib/utils for classNames
