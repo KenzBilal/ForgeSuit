@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ForgeSuitLogo } from "@/components/ui/ForgeSuitLogo";
+import { createClient } from "@/lib/supabase";
 
 const navItems = [
   { label: "Dashboard",     href: "/dashboard",             icon: LayoutDashboard },
@@ -39,6 +40,12 @@ const bottomItems = [
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    window.location.href = "/login";
+  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-saas-bg">
@@ -136,21 +143,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
         </nav>
 
-        {/* User footer */}
-        <div className="p-4 border-t border-saas-border">
-          <div className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-saas-bg cursor-pointer group transition-all duration-200">
-            <div
-              className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white bg-saas-subtext shadow-sm"
+          <div className="p-4 border-t border-saas-border">
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-saas-bg cursor-pointer group transition-all duration-200 text-left"
             >
-              U
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-saas-text text-sm font-medium truncate group-hover:text-primary-600 transition-colors">User</p>
-              <p className="text-saas-subtext text-xs truncate">user@example.com</p>
-            </div>
-            <LogOut className="w-4 h-4 text-saas-subtext group-hover:text-primary-500 transition-colors" />
+              <div
+                className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white bg-saas-subtext shadow-sm"
+              >
+                U
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-saas-text text-sm font-medium truncate group-hover:text-primary-600 transition-colors">User</p>
+                <p className="text-saas-subtext text-xs truncate">user@example.com</p>
+              </div>
+              <LogOut className="w-4 h-4 text-saas-subtext group-hover:text-red-500 transition-colors" />
+            </button>
           </div>
-        </div>
       </aside>
 
       {/* ── Main Content ── */}
